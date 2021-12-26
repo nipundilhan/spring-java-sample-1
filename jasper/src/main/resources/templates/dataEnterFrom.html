@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+
+<style>
+#td1 {
+  padding-bottom : 200px;
+}
+
+form {
+  margin-top : 200px;
+  margin-right: 200px;
+  margin-left: 200px;
+  padding-bottom: 200px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+       <table class="table table-striped">
+          <tbody>
+             <tr>
+                <!-- <td  style="padding-bottom : 200px;" colspan="1"> -->
+                <td  id="td1" colspan="1"> 
+                
+                   <form class="well form-horizontal" th:action="@{/mobile-otp}" method="post">
+                    
+                         <div class="form-group">
+                            <label class="col-md-4 control-label">Phone Number</label>
+                            <div class="col-md-8 inputGroupContainer">
+                               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="mobileNo" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
+                            </div>
+                         </div>
+                      
+                      <div class="form-group">
+                       <label class="col-md-4 control-label"></label>
+                      <div class="col-md-8 inputGroupContainer">
+                      
+                       <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"></input>
+                       </div>
+                     <div class="form-group">  
+                   </form>
+                </td>
+                
+             </tr>
+          </tbody>
+       </table>
+    </div>
+
+</body>
+</html>

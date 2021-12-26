@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread])
+				%highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- log level increasing order left to right TRACE, DEBUG, INFO, WARN, 
+		ERROR trace(), debug(), info(), warn(), error(). -->
+
+	<appender name="InfoUpperFileAppender"
+		class="ch.qos.logback.core.FileAppender">
+
+		<file>F:/logs/aop-log/upper_info.log</file>
+
+		<!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-10level %logger{36}
+				%-20M - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="TraceLevelFileAppender"
+		class="ch.qos.logback.core.FileAppender">
+
+		<file>F:/logs/aop-log/trace_level.log</file>
+
+		<!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-10level %logger{36}
+				%-20M - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+
+	<appender name="DebugOnlyFileAppender"
+		class="ch.qos.logback.core.FileAppender">
+		<file>F:/logs/aop-log/debug_only.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-10level %logger{36}
+				%-20M - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="SIZE-BASED"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>F:/logs/aop-log/log_size_base_root.log</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M - %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>F:/logs/aop-log/log_size_based_%i.log</fileNamePattern>
+			<minIndex>2</minIndex>
+			<maxIndex>8</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>1KB</maxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+
+	<appender name="TIME-BASED"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>F:/logs/aop-log/log_time_root.log</file>
+
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M - %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>F:/logs/aop-log/log_time_%d{yyyy-MM-dd_HH-mm}.log
+			</fileNamePattern>
+
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
+
+		</rollingPolicy>
+	</appender>
+
+
+
+
+	<!-- <root level="info"> <appender-ref ref="STDOUT" /> </root> -->
+
+	<logger name="root" level="info">
+		<appender-ref ref="STDOUT" />
+		
+	</logger>
+
+
+<logger name="UpperDebugLevelLogger" level="debug"
+		additivity="false">
+		<appender-ref ref="TraceLevelFileAppender" />
+		<appender-ref ref="InfoUpperFileAppender" />
+		<appender-ref ref="DebugOnlyFileAppender" />
+		<appender-ref ref="SIZE-BASED" />
+		<appender-ref ref="TIME-BASED" />
+	</logger> 
+
+</configuration>
